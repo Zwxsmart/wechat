@@ -1,0 +1,197 @@
+# ===================================================================
+# COMMON SPRING BOOT PROPERTIES
+#
+# This sample file is provided as a guideline. Do NOT copy it in its
+# entirety to your own application.                             ^^^
+# ===================================================================
+# ----------------------------------------
+# WEB PROPERTIES
+# ----------------------------------------
+server:
+    port: 9999
+    session-timeout: 60
+    error:
+        path: /error/error
+    tomcat:
+           max-threads: 300  # tomcat最大线程数，默认为200
+           uri-encoding: UTF-8 # tomcat的URI编码
+           access-log-enabled: true  # 打开Tomcat的Access日志，并可以设置日志格式的方法;
+           access-log-pattern: "time=%t,client=%a,server=%A:%p,query=%r,status=%s"
+           accesslog.directory: /home/log/logs/brand_wechat # accesslog目录，默认在basedir/logs
+
+logging:
+    config: classpath:logback-spring.xml
+#    path: f:/logs
+
+
+# ----------------------------------------
+# FREEMARKER (FreeMarkerAutoConfiguration)
+# ----------------------------------------
+spring:
+    profiles:
+        active: dev
+    resources.chain.strategy.content:
+        enabled: true
+        paths: /**
+    freemarker:
+        cache: false
+        charset: UTF-8
+#        settings.classic_compatible: true
+#        template-loader-path=classpath: /templates/
+#        settings.output_format: HTMLOutputFormat
+#        suffix: .ftlh
+#        settings.recognize_standard_file_extensions: true
+#        check-template-location: true
+#        content-type: text/html
+#        expose-request-attributes: true
+#        expose-session-attributes: true
+#        request-context-attribute: request
+#        allow-request-override: false
+#        expose-spring-macro-helpers: false
+# ----------------------------------------
+# MyBatis Configuration
+# ----------------------------------------
+    jps:
+        showsql: true
+mybatis:
+    mapperLocations: com.lanwantec.wechat.mapper/*.xml
+    typeAliasesPackage: com.lanwantec.wechat.model
+
+wechat:
+    dianyuan: 192.168.1.210:12581
+    wechatList:
+        - id: P00210119
+          app_id: wx7c07fdc07d73254e
+          appsecret: d4624c36b6795d1d99dcf0547af5443d
+          wechat_url: rainy.jiajushouye.com
+          jump_url: h5test.jiajushouye.com/p00210119/weChatjump.html
+
+        - id: P00210118
+          app_id: wx2ee727a01804a417
+          appsecret: 46b559ec1926bb793fb518aeb7c4e9d1
+          wechat_url: h5test.jiajushouye.com
+          jump_url: h5test.jiajushouye.com/p00210118/weChatjump.html
+---
+#本地开发环境
+spring:
+    profiles: dev
+
+# ----------------------------------------
+# DataBase Configuration
+# ----------------------------------------
+    datasource:
+        names: primary
+        primary:
+            url: jdbc:mysql://192.168.1.210:3306/courtyard_anyun_test?useUnicode=true&characterEncoding=UTF-8
+            username: lwapp
+            password: wNsTED5W
+            type: com.alibaba.druid.pool.DruidDataSource
+            driver-class-name: com.mysql.jdbc.Driver
+            filters: stat
+            maxActive: 20
+            initialSize: 1
+            maxWait: 60000
+            minIdle: 1
+            timeBetweenEvictionRunsMillis: 60000
+            minEvictableIdleTimeMillis: 300000
+            validationQuery: select 'x'
+            testWhileIdle: true
+            testOnBorrow: false
+            testOnReturn: false
+            poolPreparedStatements: true
+            maxOpenPreparedStatements: 20
+
+
+
+---
+#本地测试环境
+spring:
+    profiles: test_local
+
+# ----------------------------------------
+# DataBase Configuration
+# ----------------------------------------
+    datasource:
+        names: primary
+        primary:
+            url: jdbc:mysql://192.168.1.210:3306/courtyard_anyun_dev?useUnicode=true&characterEncoding=UTF-8
+            username: lwapp
+            password: wNsTED5W
+            type: com.alibaba.druid.pool.DruidDataSource
+            driver-class-name: com.mysql.jdbc.Driver
+            filters: stat
+            maxActive: 20
+            initialSize: 1
+            maxWait: 60000
+            minIdle: 1
+            timeBetweenEvictionRunsMillis: 60000
+            minEvictableIdleTimeMillis: 300000
+            validationQuery: select 'x'
+            testWhileIdle: true
+            testOnBorrow: false
+            testOnReturn: false
+            poolPreparedStatements: true
+            maxOpenPreparedStatements: 20
+
+
+---
+#线上测试环境
+spring:
+    profiles: test_line
+
+# ----------------------------------------
+# DataBase Configuration
+# ----------------------------------------
+    datasource:
+        names: primary
+        primary:
+            url: jdbc:mysql://192.168.1.210:3306/courtyard_anyun_dev?useUnicode=true&characterEncoding=UTF-8
+            username: lwapp
+            password: wNsTED5W
+            type: com.alibaba.druid.pool.DruidDataSource
+            driver-class-name: com.mysql.jdbc.Driver
+            filters: stat
+            maxActive: 20
+            initialSize: 1
+            maxWait: 60000
+            minIdle: 1
+            timeBetweenEvictionRunsMillis: 60000
+            minEvictableIdleTimeMillis: 300000
+            validationQuery: select 'x'
+            testWhileIdle: true
+            testOnBorrow: false
+            testOnReturn: false
+            poolPreparedStatements: true
+            maxOpenPreparedStatements: 20
+
+
+---
+#线上正式生产环境
+spring:
+    profiles: prod
+
+# ----------------------------------------
+# DataBase Configuration
+# ----------------------------------------
+    datasource:
+        names: primary
+        primary:
+            url: jdbc:mysql://rm-bp13ow8t8u30m89gj.mysql.rds.aliyuncs.com:3306/courtyard_anyun?useUnicode=true&characterEncoding=UTF-8
+            username: dukang
+            password: dukang
+            type: com.alibaba.druid.pool.DruidDataSource
+            driver-class-name: com.mysql.jdbc.Driver
+            filters: stat
+            maxActive: 20
+            initialSize: 1
+            maxWait: 60000
+            minIdle: 1
+            timeBetweenEvictionRunsMillis: 60000
+            minEvictableIdleTimeMillis: 300000
+            validationQuery: select 'x'
+            testWhileIdle: true
+            testOnBorrow: false
+            testOnReturn: false
+            poolPreparedStatements: true
+            maxOpenPreparedStatements: 20
+

@@ -1,0 +1,13 @@
+{
+  "groups": [{
+    "name": "wechat",
+    "type": "com.lanwantec.wechat.config.ConfigManager",
+    "sourceType": "com.lanwantec.wechat.config.ConfigManager"
+  }],
+  "properties": [{
+    "name": "wechat.wechat-list",
+    "type": "java.util.List<java.util.Map<java.lang.String,java.lang.Object>>",
+    "sourceType": "com.lanwantec.wechat.config.ConfigManager"
+  }],
+  "hints": []
+}

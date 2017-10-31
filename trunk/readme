@@ -1,0 +1,7 @@
+主要核心功能分布在
+com.lanwantec.wechat.utils.WeChatUtil
+com.lanwantec.wechat.utils.MessageUtil
+com.lanwantec.wechat.controller.WeChatController
+com.lanwantec.wechat.controller.CoreController
+com.lanwantec.wechat.utils.Sign
+com.lanwantec.wechat.utils.SignUtil

@@ -1,0 +1,103 @@
+<configuration>
+    <!-- %m输出的信息,%p日志级别,%t线程名,%d日期,%c类的全名,,,, -->
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+    <appender name="debugLog" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- encoder 默认配置为PatternLayoutEncoder -->
+        <encoder>
+            <pattern>%msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <springProfile name="dev,test_local,test_line"><!--测试或开发环境-->
+        <appender name="outFileLog"
+                  class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <File>/home/log/logger-service/brandwechat.log</File>
+
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <maxHistory>30</maxHistory>
+                <fileNamePattern>/home/log/logger-service/brandwechat_%d{yyyy-MM-dd_HH}.his</fileNamePattern>
+            </rollingPolicy>
+            <encoder>
+                <pattern>
+                    %msg%n
+                </pattern>
+            </encoder>
+        </appender>
+        <appender name="error_outFileLog"
+                  class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <File>/home/log/logger-service/brandwechat_error.html</File>
+
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <maxHistory>30</maxHistory>
+                <fileNamePattern>/home/log/logger-service/brandwechat_error_%d{yyyy-MM-dd}.html</fileNamePattern>
+            </rollingPolicy>
+            <encoder>
+                <pattern>
+                    %msg%n
+                </pattern>
+            </encoder>
+        </appender>
+        <root level="info">
+            <appender-ref ref="CONSOLE" />
+        </root>
+
+        <logger name="com.lanwantec.wechat.mapper" level="debug" additivity="true">
+            <appender-ref ref="CONSOLE" />
+        </logger>
+
+        <logger name="com.lanwantec" level="info" additivity="true">
+            <appender-ref ref="outFileLog" />
+        </logger>
+        <logger name="com.lanwantec.wechat.config.ExceptionController" level="error" additivity="true">
+            <appender-ref ref="error_outFileLog" />
+        </logger>
+        <logger name="com.lanwantec.wechat.config.ExceptionController" level="error" additivity="true">
+            <appender-ref ref="CONSOLE" />
+        </logger>
+    </springProfile>
+
+
+    <springProfile name="prod"><!--线上环境-->
+        <appender name="outFileLog"   class="ch.qos.logback.core.rolling.RollingFileAppender">
+
+            <File>/logs/brand_wechat/brandwechat.log</File><!--日志存放路径 -->
+
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <maxHistory>30</maxHistory>
+                <fileNamePattern>/logs/brand_wechat/brandwechat_%d{yyyy-MM-dd_HH}.his</fileNamePattern>
+            </rollingPolicy>
+            <encoder>
+                <pattern>
+                    %msg%n
+                </pattern>
+            </encoder>
+        </appender>
+        <appender name="error_outFileLog"
+                  class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <File>/logs/brand_wechat/brandwechat_error.html</File>
+
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <maxHistory>30</maxHistory>
+                <fileNamePattern>/logs/brand_wechat/brandwechat_error_%d{yyyy-MM-dd}.html</fileNamePattern>
+            </rollingPolicy>
+            <encoder>
+                <pattern>
+                    %msg%n
+                </pattern>
+            </encoder>
+        </appender>
+        <root level="info">
+            <appender-ref ref="CONSOLE" />
+        </root>
+
+        <logger name="com.lanwantec" level="info" additivity="false">
+            <appender-ref ref="outFileLog" />
+        </logger>
+        <logger name="com.lanwantec.wechat.config.ExceptionController" level="error" additivity="true">
+            <appender-ref ref="error_outFileLog" />
+        </logger>
+        <logger name="com.lanwantec.wechat.config.ExceptionController" level="error" additivity="true">
+            <appender-ref ref="CONSOLE" />
+        </logger>
+    </springProfile>
+</configuration>
